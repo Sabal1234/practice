@@ -16,8 +16,8 @@ function App() {
     setState(prev => ({
       ...prev,
       fields: {
-        ...prev.fields,  // copy existing fields
-        [name]: value    // update only the field being typed
+        ...prev.fields, 
+        [name]: value    
       }
     }));
   };
@@ -35,8 +35,8 @@ function App() {
   }
      setState(prev => ({
        fields: { name: "", email: "" },
-      fieldErrors: {}, // reset fields
-      people: [...prev.people, person] // add new person
+      fieldErrors: {}, 
+      people: [...prev.people, person] 
     }));
   };
 const validate = (person) => {
