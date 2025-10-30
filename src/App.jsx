@@ -1,74 +1,76 @@
 import { useState } from "react";
+import Field from "./component/Field.jsx";
 
 function App() {
   const [state, setState] = useState({
     fields: {
       name: "",
-      email:"",
+      email: "",
     },
     fieldErrors: {},
-    people:[]
-})
+    people: [],
+  });
 
-  const onInputChange = (evt) => {
-     const { name, value } = evt.target;
-
-    setState(prev => ({
+  const onInputChange = ({ name, value, error }) => {
+    setState((prev) => ({
       ...prev,
       fields: {
-        ...prev.fields, 
-        [name]: value    
-      }
+        ...prev.fields,
+        [name]: value,
+      },
+      fieldErrors: {
+        ...prev.fieldErrors,
+        [name]: error,
+      },
     }));
+  };
+
+  const validate = () => {
+    const { fields, fieldErrors } = state;
+    const errMessages = Object.keys(fieldErrors).filter(
+      (k) => fieldErrors[k]
+    );
+    if (!fields.name) return true;
+    if (!fields.email) return true;
+    if (errMessages.length) return true;
+    return false;
   };
 
   const onFormSubmit = (evt) => {
-        evt.preventDefault();
+    evt.preventDefault();
+    if (validate()) return;
     const person = state.fields;
-    const fieldErrors = validate(person)
-    if (Object.keys(fieldErrors).length > 0) {
-    setState(prev => ({
-        ...prev,
-        fieldErrors
-      }));
-      return;
-  }
-     setState(prev => ({
-       fields: { name: "", email: "" },
-      fieldErrors: {}, 
-      people: [...prev.people, person] 
+
+    setState((prev) => ({
+      fields: { name: "", email: "" },
+      fieldErrors: {},
+      people: [...prev.people, person],
     }));
   };
-const validate = (person) => {
-const errors = {};
-if (!person.name) errors.name = 'Name Required';
-if (!person.email) errors.email = 'Email Required';
-if (person.email && !isEmail(person.email)) errors.email = 'Invalid Email';
-return errors;
-};
-const isEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+  const isEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   return (
     <div>
       <h1>Sign Up Sheet</h1>
       <form onSubmit={onFormSubmit}>
-        <input
+        <Field
           placeholder="Name"
           name="name"
           value={state.fields.name}
           onChange={onInputChange}
+          validate={(val) => (val ? false : "Name Required")}
         />
-        <span style={{color: 'red'}}>{state.fieldErrors.name}</span>
         <br />
-        <input
+        <Field
           placeholder="Email"
           name="email"
           value={state.fields.email}
           onChange={onInputChange}
+          validate={(val) => (isEmail(val) ? false : "Invalid Email")}
         />
-        <span style={{ color: "red" }}>{state.fieldErrors.email}</span>
         <br />
-        <input type="submit" />
+        <input type="submit" disabled={validate()} />
       </form>
 
       <div>

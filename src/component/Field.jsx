@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 const Field = ({ placeholder, name, value, validate, onChange }) => {
   const [state, setState] = useState({
     value: value,
