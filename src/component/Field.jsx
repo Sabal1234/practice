@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import styles from '../component/Field.module.css'
 const Field = ({ placeholder, name, value, validate, onChange }) => {
   const [state, setState] = useState({
     value: value,
@@ -17,12 +18,13 @@ const Field = ({ placeholder, name, value, validate, onChange }) => {
   };
   return (
     <div>
-      <input
+      <input className={styles.inputField}
       placeholder={placeholder}
       value={state.value}
       onChange={handleChange}
       />
-      <span style={{ color: 'red' }}>{state.error }</span>
+     
+      <span className={ styles.err}>{state.error }</span>
     </div>
   )
 }

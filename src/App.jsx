@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Field from "./component/Field.jsx";
-
+import styles from "../src/App.module.css"
 function App() {
   const [state, setState] = useState({
     fields: {
@@ -51,10 +51,10 @@ function App() {
   const isEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   return (
-    <div>
-      <h1>Sign Up Sheet</h1>
-      <form onSubmit={onFormSubmit}>
-        <Field
+    <div className={styles.mainContainer}>
+      <h1>Enter your Name And Email</h1>
+      <form onSubmit={onFormSubmit} className={styles.formContainer}>
+        <Field className={styles.nameField}
           placeholder="Name"
           name="name"
           value={state.fields.name}
@@ -62,7 +62,7 @@ function App() {
           validate={(val) => (val ? false : "Name Required")}
         />
         <br />
-        <Field
+        <Field className={styles.emailField}
           placeholder="Email"
           name="email"
           value={state.fields.email}
@@ -70,11 +70,10 @@ function App() {
           validate={(val) => (isEmail(val) ? false : "Invalid Email")}
         />
         <br />
-        <input type="submit" disabled={validate()} />
+        <input className={styles.submitButton }type="submit" disabled={validate()} />
       </form>
 
-      <div>
-        <h3>People</h3>
+      <div className={styles.listContainer}>
         <ul>
           {state.people.map(({ name, email }, i) => (
             <li key={i}>
