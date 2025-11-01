@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Field from "./component/Field.jsx";
 import styles from "../src/App.module.css"
+import CourseSelect from "./component/CourseSelect.jsx";
 function App() {
   const [state, setState] = useState({
     fields: {
@@ -70,14 +71,20 @@ function App() {
           validate={(val) => (isEmail(val) ? false : "Invalid Email")}
         />
         <br />
+         <CourseSelect
+        department={state.fields.department}
+        course={state.fields.course}
+        onChange={onInputChange}
+        />
+        <br />
         <input className={styles.submitButton }type="submit" disabled={validate()} />
       </form>
 
       <div className={styles.listContainer}>
         <ul>
-          {state.people.map(({ name, email }, i) => (
+          {state.people.map(({ name, email, department, course }, i) => (
             <li key={i}>
-              {name} ({email})
+              {[name, email, department, course].join(' - ')}
             </li>
           ))}
         </ul>
