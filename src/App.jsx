@@ -1,16 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Field from "./component/Field.jsx";
 import styles from "../src/App.module.css"
 import CourseSelect from "./component/CourseSelect.jsx";
+import apiClient from "./api/apiClient.js";
 function App() {
   const [state, setState] = useState({
     fields: {
       name: "",
       email: "",
+      course: null,
+      department:null
     },
     fieldErrors: {},
     people: [],
+    _loading: false,
+    _saveStatus:'READY'
   });
+    useEffect(() => {
+    setState((prev) => ({ ...prev, _loading: true }));
+    apiClient.loadPeople().then((people) => {
+      setState((prev) => ({
+        ...prev,
+        _loading: false,
+        people: people,
+      }));
+    });
+  }, []);
 
   const onInputChange = ({ name, value, error }) => {
     setState((prev) => ({
@@ -23,6 +38,7 @@ function App() {
         ...prev.fieldErrors,
         [name]: error,
       },
+          _saveStatus: 'READY',
     }));
   };
 
@@ -37,23 +53,47 @@ function App() {
     return false;
   };
 
-  const onFormSubmit = (evt) => {
-    evt.preventDefault();
-    if (validate()) return;
-    const person = state.fields;
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+  if (validate()) return;
 
-    setState((prev) => ({
-      fields: { name: "", email: "" },
-      fieldErrors: {},
-      people: [...prev.people, person],
-    }));
-  };
+  const person = state.fields;
+  const people = [...state.people, person];
+
+  setState((prev) => ({
+    ...prev,
+    _saveStatus: "SAVING",
+  }));
+
+  apiClient
+    .savePeople(people)
+    .then(() => {
+      setState((prev) => ({
+        ...prev,
+        people,
+        fields: { name: "", email: "", course: null, department: null },
+        _saveStatus: "SUCCESS",
+      }));
+    })
+    .catch((err) => {
+      console.error(err);
+      setState((prev) => ({
+        ...prev,
+        _saveStatus: "ERROR",
+      }));
+    });
+};
+
 
   const isEmail = (email) => /\S+@\S+\.\S+/.test(email);
+  if (state._loading) {
+    return <h1>Loading</h1>
+  }
 
   return (
+    
     <div className={styles.mainContainer}>
-      <h1>Enter your Name And Email</h1>
+      <h1>Sign Up Sheet</h1>
       <form onSubmit={onFormSubmit} className={styles.formContainer}>
         <Field className={styles.nameField}
           placeholder="Name"
@@ -77,7 +117,29 @@ function App() {
         onChange={onInputChange}
         />
         <br />
-        <input className={styles.submitButton }type="submit" disabled={validate()} />
+        {
+  {
+    SAVING: <input className={styles.submitButton} value="Saving..." type="submit" disabled />,
+    SUCCESS: <input className={styles.submitButton} value="Saved!" type="submit" disabled />,
+    ERROR: (
+      <input
+        className={styles.submitButton}
+        value="Save Failed - Retry?"
+        type="submit"
+        disabled={validate()}
+      />
+    ),
+    READY: (
+      <input
+        className={styles.submitButton}
+        value="Submit"
+        type="submit"
+        disabled={validate()}
+      />
+    ),
+  }[state._saveStatus]
+}
+
       </form>
 
       <div className={styles.listContainer}>

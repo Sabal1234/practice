@@ -1,11 +1,22 @@
-const apiClient = (dept) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      if (dept === 'cs') resolve([{ id: 'cs101', name: 'Intro to CS' }, { id: 'cs102', name: 'Data Structures' }]);
-      else if (dept === 'math') resolve([{ id: 'math101', name: 'Calculus I' }, { id: 'math102', name: 'Linear Algebra' }]);
-      else resolve([]);
-    }, 500);
-  });
+const apiClient = {
+  loadPeople: () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([
+          { name: "Sabal", email: "sabaladhikari@email.com", department: "Computer Science", course: "CS101" },
+          { name: "Shrijan", email: "srijan@email.com", department: "Math", course: "MT101" },
+        ]);
+      }, 500);
+    });
+  },
+
+  savePeople: (people) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(people);
+      }, 500);
+    });
+  },
 };
 
-export default apiClient; 
+export default apiClient;
