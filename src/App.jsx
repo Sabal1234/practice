@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Field from "./component/Field.jsx";
-import styles from "../src/App.module.css"
-import CourseSelect from "./component/CourseSelect.jsx";
+import styles from "../src/App.module.css";
 import apiClient from "./api/apiClient.js";
+import CourseSelect from "./component/CourseSelect.jsx";
+import Field from "./component/Field.jsx";
 function App() {
   const [state, setState] = useState({
     fields: {

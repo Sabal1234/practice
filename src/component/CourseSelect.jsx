@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import apiClient from '../api/apiClient.js'; 
+import { useEffect, useState } from 'react';
 
 const CourseSelect = ({ department: propDepartment, course: propCourse, onChange }) => {
 const [department, setDepartment] = useState(propDepartment || null);
@@ -27,7 +26,8 @@ setLoading(false);
 const handleDepartmentChange = (evt) => {
 const selectedDept = evt.target.value;
 setDepartment(selectedDept);
-setCourse(null);
+    setCourse(null);
+    onChange({name:'department',value:selectedDept})
 };
 
 const handleCourseChange = (evt) => {
@@ -37,12 +37,12 @@ onChange({ name: 'course', value: selectedCourse });
 };
 
 const renderDepartmentSelect = () => (
-<select value={department || ''} onChange={handleDepartmentChange}> <option value="">Select Department</option> <option value="cs">Computer Science</option> <option value="math">Mathematics</option>
+<select value={department || ''} onChange={handleDepartmentChange}> <option value="">Select Department</option> <option value="BCA">BCA</option> <option value="CSIT">CSIT</option>
  </select>
 );
 
 const renderCourseSelect = () => (
-<select value={course || ''} onChange={handleCourseChange} disabled={!department || loading}> <option value="">Select Course</option>
+<select value={course || ''} onChange={handleCourseChange} disabled={!department || loading}> <option value="">Select Course</option><option value="Mathmetic">Mathmetic</option><option value='AI'>AI</option><option value='C-programming'>C-programmin</option><option value='Dot Net'>Dot Net</option>
 {courses.map((c) => (
 <option key={c.id || c} value={c.id || c}>
 {c.name || c} </option>

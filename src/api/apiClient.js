@@ -3,8 +3,8 @@ const apiClient = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve([
-          { name: "Sabal", email: "sabaladhikari@email.com", department: "Computer Science", course: "CS101" },
-          { name: "Shrijan", email: "srijan@email.com", department: "Math", course: "MT101" },
+          { name: "Sabal", email: "sabaladhikari@email.com", department: "BCA", course: "Advance Dot Net" },
+          { name: "Shrijan", email: "srijan@email.com", department: "CSIT", course: "AI" },
         ]);
       }, 500);
     });
