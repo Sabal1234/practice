@@ -87,11 +87,10 @@ const onFormSubmit = (evt) => {
 
   const isEmail = (email) => /\S+@\S+\.\S+/.test(email);
   if (state._loading) {
-    return <h1>Loading</h1>
+    return <h1>Loading...</h1>
   }
 
-  return (
-    
+  return ( 
     <div className={styles.mainContainer}>
       <h1>Sign Up Sheet</h1>
       <form onSubmit={onFormSubmit} className={styles.formContainer}>

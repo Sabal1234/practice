@@ -12,16 +12,6 @@ setDepartment(propDepartment);
 setCourse(propCourse);
 }, [propDepartment, propCourse]);
 
-const fetchCourses = async (dept) => {
-setLoading(true);
-setCourses([]);
-try {
-const fetchedCourses = await mockFetchCourses(dept);
-setCourses(fetchedCourses);
-} finally {
-setLoading(false);
-}
-};
 
 const handleDepartmentChange = (evt) => {
 const selectedDept = evt.target.value;
