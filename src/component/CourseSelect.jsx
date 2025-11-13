@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-
+import styles from '../component/CourseSelect.module.css'
 const CourseSelect = ({ department: propDepartment, course: propCourse, onChange }) => {
   const [department, setDepartment] = useState(propDepartment || null);
   const [course, setCourse] = useState(propCourse || null);
@@ -24,14 +24,14 @@ const CourseSelect = ({ department: propDepartment, course: propCourse, onChange
   };
 
   return (
-    <div>
-      <select value={department || ''} onChange={handleDepartmentChange}>
+    <div className={styles.container }>
+      <select className={styles.departmentOptionList} value={department || ''} onChange={handleDepartmentChange}>
         <option value="">Select Department</option>
         <option value="BCA">BCA</option>
         <option value="CSIT">CSIT</option>
       </select>
       <br />
-      <select
+      <select className={styles.courseOptionList}
         value={course || ''}
         onChange={handleCourseChange}
         disabled={!department }
