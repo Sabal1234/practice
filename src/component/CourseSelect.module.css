@@ -1,11 +1,26 @@
 .container{
-
-
-
+  display: flex;
+  width: 100%;
+  gap: 1rem;
 }
-.departmentOptionList{
-
+.departmentOptionList,.courseOptionList{
+width: 100%;
+  padding: 0.4rem 2rem;
+    border: 1.5px solid #000000;
+    text-align: center;
+font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.courseOptionList{
 
+.departmentOptionList:hover,
+.courseOptionList:hover {
+  border-color: #007bff;
+  
 }
+.courseOptionList:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+

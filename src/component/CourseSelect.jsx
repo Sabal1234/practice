@@ -28,7 +28,8 @@ const CourseSelect = ({ department: propDepartment, course: propCourse, onChange
       <select className={styles.departmentOptionList} value={department || ''} onChange={handleDepartmentChange}>
         <option value="">Select Department</option>
         <option value="BCA">BCA</option>
-        <option value="CSIT">CSIT</option>
+          <option value="CSIT">CSIT</option>
+        
       </select>
       <br />
       <select className={styles.courseOptionList}
