@@ -10,13 +10,7 @@ const apiClient = {
     });
   },
 
-  savePeople: (people) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(people);
-      }, 500);
-    });
-  },
+
 };
 
 export default apiClient;
