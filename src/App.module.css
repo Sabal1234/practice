@@ -7,7 +7,7 @@
   margin-left: auto;
   margin-right: auto;
   font-family: 'Roboto';
-  background: linear-gradient(270deg, red, yellow);
+  background: linear-gradient(270deg, rgb(65, 13, 13), yellow);
  
   border-radius: 2rem;
   width: 50rem;
@@ -91,4 +91,17 @@ transform: translateX(-2px);
 div h1{
 color: #FDE7B3;
 margin-bottom: 0.5rem;
+}
+@media(max-width:480px){
+.submitButton{
+        padding: 0.5rem 0.6rem;
+       font-size: 1rem;  
+}
+.listContainer{
+margin-top: 0.9rem;
+}
+.listContainer li{
+  text-align: center;
+  background-color: #63A361;
+}
 }
